@@ -64,11 +64,33 @@ src/main/java/org/kinjal/project/studentregistration/
 └── service/        StudentService, EmailService — business logic
 ```
 
-## How to Run
+## How to Run Locally
 
 1. Build with Maven: `mvn clean package`
 2. Deploy the generated WAR file to a servlet container (e.g., Tomcat, GlassFish)
-3. Access the API at `http://localhost:8080/studentregistration/students`
+3. Access the API at `http://localhost:8080/students`
+
+### Using Docker
+
+```bash
+docker build -t student-registration-api .
+docker run -p 8080:8080 student-registration-api
+```
+
+Access the API at `http://localhost:8080/students`
+
+## Deploy to Render (Free)
+
+1. Go to [render.com](https://render.com) and sign up with your GitHub account
+2. Click **New** → **Web Service**
+3. Connect the `kinjalthehero/student-registration-api` repository
+4. Render will auto-detect the Dockerfile — use these settings:
+   - **Name:** `student-registration-api`
+   - **Instance Type:** Free
+5. Click **Deploy**
+6. Your API will be live at `https://student-registration-api.onrender.com/students`
+
+> **Note:** Free tier sleeps after 15 minutes of inactivity. The first request after sleep takes ~30 seconds to spin up.
 
 ## Author
 
