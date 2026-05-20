@@ -1,6 +1,54 @@
 # Student Registration API
 
+**Live API: [https://student-registration-api-inrq.onrender.com/students](https://student-registration-api-inrq.onrender.com/students)**
+
 A RESTful API for student registration built with Java and Jersey (JAX-RS). Supports full CRUD operations and auto-generates university email addresses for new students.
+
+> The first request may take ~30 seconds if the server is waking up — it's hosted on a free tier that sleeps after inactivity.
+
+---
+
+## Try It Out
+
+No setup needed — click the links below to try the live API right in your browser.
+
+### 1. View all registered students
+Open this link in your browser:
+```
+https://student-registration-api-inrq.onrender.com/students
+```
+
+### 2. Register a new student
+Copy and paste this into your terminal (Mac/Linux) or use an API tool like [Reqbin](https://reqbin.com):
+
+```bash
+curl -X POST https://student-registration-api-inrq.onrender.com/students \
+  -H "Content-Type: application/json" \
+  -d '{
+    "firstName": "Jane",
+    "lastName": "Doe",
+    "address": "Boston, MA",
+    "enrolledDepartment": "cs"
+  }'
+```
+
+The API will automatically generate a university email (`jane.doe@cs.northeastern.edu`) and a random password.
+
+### 3. View, update, or delete a student
+```bash
+# Get student by ID
+curl https://student-registration-api-inrq.onrender.com/students/1
+
+# Update a student
+curl -X PUT https://student-registration-api-inrq.onrender.com/students/1 \
+  -H "Content-Type: application/json" \
+  -d '{"firstName": "Jane", "lastName": "Smith", "address": "New York, NY", "enrolledDepartment": "math"}'
+
+# Delete a student
+curl -X DELETE https://student-registration-api-inrq.onrender.com/students/1
+```
+
+---
 
 ## Features
 
@@ -8,6 +56,8 @@ A RESTful API for student registration built with Java and Jersey (JAX-RS). Supp
 - **Auto-Generated Email** — New students receive an email in the format `firstname.lastname@department.northeastern.edu`
 - **Random Password** — Each generated email comes with a secure random password
 - **In-Memory Storage** — Uses a HashMap as a lightweight in-memory database
+- **Dockerized** — Single-command deployment with Docker
+- **Live on Render** — Free cloud hosting with auto-deploy from GitHub
 
 ## API Endpoints
 
@@ -52,7 +102,8 @@ A RESTful API for student registration built with Java and Jersey (JAX-RS). Supp
 - **Java 7**
 - **Jersey 2.27** (JAX-RS reference implementation)
 - **Maven** for build management
-- **WAR** packaging for servlet container deployment
+- **Docker** + **Tomcat 9** for containerized deployment
+- **Render** for free cloud hosting
 
 ## Project Structure
 
@@ -64,33 +115,21 @@ src/main/java/org/kinjal/project/studentregistration/
 └── service/        StudentService, EmailService — business logic
 ```
 
-## How to Run Locally
-
-1. Build with Maven: `mvn clean package`
-2. Deploy the generated WAR file to a servlet container (e.g., Tomcat, GlassFish)
-3. Access the API at `http://localhost:8080/students`
+## Run Locally
 
 ### Using Docker
-
 ```bash
 docker build -t student-registration-api .
 docker run -p 8080:8080 student-registration-api
 ```
 
+### Using Maven
+```bash
+mvn clean package
+# Deploy target/studentregistration.war to Tomcat or GlassFish
+```
+
 Access the API at `http://localhost:8080/students`
-
-## Deploy to Render (Free)
-
-1. Go to [render.com](https://render.com) and sign up with your GitHub account
-2. Click **New** → **Web Service**
-3. Connect the `kinjalthehero/student-registration-api` repository
-4. Render will auto-detect the Dockerfile — use these settings:
-   - **Name:** `student-registration-api`
-   - **Instance Type:** Free
-5. Click **Deploy**
-6. Your API will be live at `https://student-registration-api.onrender.com/students`
-
-> **Note:** Free tier sleeps after 15 minutes of inactivity. The first request after sleep takes ~30 seconds to spin up.
 
 ## Author
 
