@@ -1,8 +1,9 @@
 # Student Registration API
 
+**Live UI: [https://kinjalthehero.github.io/student-registration-api/](https://kinjalthehero.github.io/student-registration-api/)**
 **Live API: [https://student-registration-api-inrq.onrender.com/students](https://student-registration-api-inrq.onrender.com/students)**
 
-A RESTful API for student registration built with Java and Jersey (JAX-RS). Supports full CRUD operations and auto-generates university email addresses for new students.
+A RESTful API for student registration built with Java and Jersey (JAX-RS). Supports full CRUD operations and auto-generates university email addresses for new students. Includes a web UI with a real-time API console that shows every HTTP request and response.
 
 > The first request may take ~30 seconds if the server is waking up — it's hosted on a free tier that sleeps after inactivity.
 
@@ -10,7 +11,10 @@ A RESTful API for student registration built with Java and Jersey (JAX-RS). Supp
 
 ## Try It Out
 
-No setup needed — click the links below to try the live API right in your browser.
+### Web UI (recommended)
+Open the **[Live UI](https://kinjalthehero.github.io/student-registration-api/)** — register students using the form and watch every API call in the real-time console panel. No setup needed.
+
+### Raw API
 
 ### 1. View all registered students
 Open this link in your browser:
@@ -56,6 +60,7 @@ curl -X DELETE https://student-registration-api-inrq.onrender.com/students/1
 - **Auto-Generated Email** — New students receive an email in the format `firstname.lastname@department.northeastern.edu`
 - **Random Password** — Each generated email comes with a secure random password
 - **In-Memory Storage** — Uses a HashMap as a lightweight in-memory database
+- **Web UI** — Interactive frontend with real-time API console (GitHub Pages)
 - **Dockerized** — Single-command deployment with Docker
 - **Live on Render** — Free cloud hosting with auto-deploy from GitHub
 
@@ -108,11 +113,14 @@ curl -X DELETE https://student-registration-api-inrq.onrender.com/students/1
 ## Project Structure
 
 ```
-src/main/java/org/kinjal/project/studentregistration/
-├── database/       DatabaseClass — in-memory HashMap store
-├── model/          Student, Email — data models
-├── resources/      StudentsResource — REST endpoints
-└── service/        StudentService, EmailService — business logic
+├── docs/                  Web UI (GitHub Pages)
+│   └── index.html         Single-page app with API console
+├── src/main/java/org/kinjal/project/studentregistration/
+│   ├── database/          DatabaseClass — in-memory HashMap store
+│   ├── model/             Student, Email — data models
+│   ├── resources/         StudentsResource — REST endpoints
+│   └── service/           StudentService, EmailService — business logic
+└── Dockerfile             Multi-stage Docker build
 ```
 
 ## Run Locally
